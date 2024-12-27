@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Details</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color:rgb(251, 134, 31);
+            display: flex;
+            color: white;
+            padding: 20px;
+            gap: 15%;          
+        }
+        #heada{
+            margin-left: 5%;
+            padding: 2%;
+            border: 2px solid black;
+            border-radius: 50%;
+        }
+        
+
+        .parent {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px;
+            gap: 20px;
+        }
+
+        #main {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 50%;
+        }
+
+        #main div {
+            background-color: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            text-align: center;
+             
+        }
+
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin-top: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        #form-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 40%;
+        }
+
+        #form-container input ,select{
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        #form-container button {
+            width: 100%;
+            background-color: #007bff;
+            padding: 12px;
+            border: none;
+            color: white;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #form-container button:hover {
+            background-color: #0056b3;
+        }
+
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="cart.html" id="heada"><i class="fa-solid fa-arrow-left fa-2xl" style="color: #080808;"></i></a><br>
+    <h1>Booking Details</h1>
+</header>
+
+<div class="parent">
+    <div id="main">
+        <!-- Dynamic content will be added here by JavaScript -->
+    </div>
+
+    <form id="form-container">
+        <h2>Fill Your Details</h2>
+        <input type="email" placeholder="Confirm your email" id="email" required ><br>
+        <input type="text" placeholder="Name" required><br>
+        <input type="number" placeholder="Mobile Number" id="number" required><br>
+        <input type="date" placeholder="Date" id="date" required><br>
+        <input type="time" placeholder="Time" id="time" required><br>
+        <select name="location" id="location" required>
+            <option value="kphb">Kphb</option>
+            <option value="kuketpally">Kuketpally</option>
+            <option value="jntu">JNTU</option>
+            <option value="lb nager">Lb nager</option>
+            <option value="gachibowli">Gachibowli</option>
+            <option value="secendrabad">secendrabad</option>
+            <option value="nampally">Nampally</option>
+            <option value="Bangarahills">Bangarahills</option>
+            <option value="Jubileehills">Jubileehills</option>
+            <option value="Ameerpet">Ameerpet</option>
+            <option value="Panjaguta">Panjaguta</option>
+            <option value="erragada">Erragada</option>
+            <option value="miyapur">Miyapur</option>
+            <option value="madapur">Madapur</option>
+        </select>
+        <button id="submit">Book Now</button>
+         
+    </form>
+</div>
+
+<script>
+    let getdata = JSON.parse(localStorage.getItem("details"));
+    console.log(getdata);
+
+    if (getdata) {
+        getdata.forEach((val) => {
+            let parent = document.getElementById("main");
+
+            let child = document.createElement("div");
+            let childa = document.createElement("div");
+            let childb = document.createElement("div");
+            let childc = document.createElement("div");
+            let childd = document.createElement("div");
+            let img = document.createElement("img");
+            img.src = val.image;
+
+            let btn = document.createElement("button");
+            btn.innerText = 'Remove';
+
+            btn.addEventListener("click", function () {
+                // Remove the item from the localStorage
+                getdata = getdata.filter(item => item.carname !== val.carname);
+                localStorage.setItem("details", JSON.stringify(getdata));
+
+                // Remove the element from the DOM
+                child.remove();
+                window.location.href="cart.html";
+            });
+
+            childa.innerText = val.carname;
+            childb.innerText = "Mileage: " + val.mileage;
+            childc.innerText = "Seats: " + val.seating;
+            childd.innerText = "Cost: ₹" + val.bookingcost;
+            childa.style.fontSize="30px"
+            childa.style.textAlign="center"
+            btn.style.textAlign="center"
+
+            child.append(childa,img,childb,childc,childd,btn);
+            parent.appendChild(child);
+        });
+    } else {
+        document.getElementById("main").innerHTML = "<p>No car details available.</p>";
+    }
+
+</script>
+
+</body>
+</html>

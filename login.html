@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        /* Reset some default styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;  /* Light background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Container for the form */
+        .container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        /* Heading styling */
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* Input fields styling */
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        /* Button styling */
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        /* Styling for the link */
+        a {
+            text-decoration: none;
+            color: #4CAF50;
+            font-size: 14px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Making the form responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px;
+            }
+
+            input {
+                padding: 8px;
+            }
+
+            button {
+                padding: 8px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px;
+                width: 100%;
+                max-width: 350px;
+            }
+
+            input {
+                padding: 6px;
+            }
+
+            button {
+                padding: 6px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Login</h1>
+        <form action="cart.html">
+            <input type="email" placeholder="Email" id="email" required><br><br>
+            <input type="password" placeholder="Password" id="password" required><br><br>
+            <button type="button" id="btn">Login</button><br><br>
+        </form>
+        <a href="#" id="recover">forgot password</a>
+    </div>
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword,sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js";
+        
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCVhUsEmz2J6QXStpwJeF8oD7DLHs4JpdQ",
+            authDomain: "login-33cf1.firebaseapp.com",
+            projectId: "login-33cf1",
+            storageBucket: "login-33cf1.firebasestorage.app",
+            messagingSenderId: "127415768807",
+            appId: "1:127415768807:web:409e6bda6c431a38473442"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        let newbtn = document.getElementById("btn");
+        newbtn.addEventListener("click", fun2);
+
+        function fun2(event) {
+            let email = document.getElementById("email").value;
+            let password = document.getElementById("password").value;
+            console.log(email, password);
+
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    console.log("Login successful", user);
+                    window.location.href = "cart.html";  // Redirect to the cart page
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    console.error("Login error", errorCode, errorMessage);
+                    alert(`Login failed: ${errorMessage}`);
+                });}
+
+
+                // recovery 
+            let recover = document.getElementById("recover");
+                recover.addEventListener("click",fun);
+                function fun(e) {
+                    let email = document.getElementById("email").value;
+                    console.log(email);
+                    sendPasswordResetEmail(auth, email)
+                    .then(() => {
+                         alert("A link is sended to you main you can recovery it by the link")
+                        // Password reset email sent!
+                        // ..
+                    })
+                    .catch((error) => {
+                        const errorCode = error.code;
+                        const errorMessage = error.message;
+                        console.error("recovery error", errorCode, errorMessage);
+                        alert(`recovery failed: ${errorMessage}`);
+                        // ..
+                    });
+                    }
+        // }
+    </script>
+</body>
+</html>

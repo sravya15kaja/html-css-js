@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign up</title>
+    <style>
+        /* Apply general page styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;  /* Light background color */
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Center the form */
+        .container {
+            background-color: #fff;  /* White background for the form */
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049; /* Darker shade on hover */
+        }
+
+        a {
+            text-decoration: none;
+            color: #4CAF50;
+            font-size: 14px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>SIGN-UP</h1>
+        <form action="login.html">
+            <input type="email" placeholder="Email" id="email" required><br>
+            <input type="password" placeholder="Password" id="password" required><br>
+            <button type="button" id="btn">Submit</button><br><br>
+        </form>
+        <p> Already having an account <a href="login.html">Login Here</a></p>
+    </div>
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js";
+        
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCVhUsEmz2J6QXStpwJeF8oD7DLHs4JpdQ",
+            authDomain: "login-33cf1.firebaseapp.com",
+            projectId: "login-33cf1",
+            storageBucket: "login-33cf1.firebasestorage.app",
+            messagingSenderId: "127415768807",
+            appId: "1:127415768807:web:409e6bda6c431a38473442"
+        };
+        
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        let newbtn = document.getElementById("btn");
+        newbtn.addEventListener("click", fun1);
+
+        function fun1(event) {
+            event.preventDefault();  // Prevent form submission and page reload
+            
+            let email = document.getElementById("email").value;
+            let password = document.getElementById("password").value;
+            console.log(email, password);
+
+            createUserWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    // Signed up 
+                    const user = userCredential.user;
+                    console.log("signed up", user);
+                    alert("successful signup");
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    console.error("Signup error", errorCode, errorMessage);
+                    alert(`Signup failed: ${errorMessage}`);
+                });
+        }
+    </script>
+</body>
+</html>

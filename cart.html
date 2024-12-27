@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Your Car</title>
+    <!-- icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Agu+Display&family=Dancing+Script:wght@400..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            background-color:rgb(251, 134, 31);
+            color: white;
+            padding: 20px;
+            margin: 0;
+            font-family: "Playfair Display", serif;
+            font-optical-sizing: auto;
+            font-weight: bold;
+            font-style: normal;
+        }
+        #main {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 20px;
+        }
+        .car-card {
+            background-color: white;
+            margin: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 300px;
+            transition: transform 0.3s ease;
+        }
+        .car-card:hover {
+            transform: scale(1.05);
+        }
+        .car-card img {
+            width: 100%;
+            height: auto;
+            border-bottom: 2px solid #ddd;
+        }
+        .car-card-content {
+            padding: 15px;
+        }
+        .car-name {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .car-details {
+            font-size: 14px;
+            color: #777;
+            margin-bottom: 10px;
+        }
+        .car-price {
+            font-size: 15px;
+            font-weight: bolder;
+            color:gray;
+            margin-bottom: 15px;
+        }
+        btn1 {
+            /* background-color: #4CAF50; */
+            background-color:rgb(216, 135, 65);
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        btn1:hover {
+            /* background-color: #45a049; */
+            background-color:rgb(251, 134, 31);
+
+        }
+        #search {
+            padding: 10px;
+            width: 50%;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            margin-right: 10px;
+            margin-top: 20px;
+            margin-left: 20%;
+            transition: border-color 0.3s ease;
+        }
+        #search:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+
+        #btn2 {
+            padding: 10px 15px;
+            background-color:rgb(251, 134, 31);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+        }
+
+        #btn2:hover {
+            background-color:rgb(251, 134, 31);
+
+        }
+
+        #btn2:focus {
+            outline: none;
+        }
+
+    </style>
+</head>
+<body>
+    <center><h1>BOOK YOUR CAR</h1></center>
+    <input type="search" id="search">
+    <button onclick="performsearch()" id="btn2"> <i class="fa-solid fa-magnifying-glass fa-xl" style="color: #141415;"></i></button>
+    <div id="main"></div>
+
+    <script>
+        let data = [
+            {
+                "id": 1,
+                "carname": "Tesla Model 3",
+                "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBRuLKdHJBAgNIO0HIqOD1tUaXB3qh87W3qw&s",
+                "mileage": "57 kmpl",
+                "seating": 4,
+                "bookingcost": 20000
+            },
+            {
+                "id": 2,
+                "carname": "Ford Freestyle",
+                "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpM3oXamCmGzLygtEQW94tLZQ6PeJItqDsFQ&s",
+                "mileage": "18.5 kmpl",
+                "seating": 4,
+                "bookingcost": 17000
+            },
+            {
+                "id": 3,
+                "carname": "Honda Civic",
+                "image": "https://www.worthreviewing.co.uk/wp-content/uploads/2021/12/DSC_0154.jpg",
+                "mileage": "19 kmpl",
+                "seating": 4,
+                "bookingcost": 15000
+            },
+            {
+                "id": 4,
+                "carname": "BMW",
+                "image": "https://imgd.aeplcdn.com/664x374/cw/ec/28448/BMW-M3-Right-Front-Three-Quarter-93770.jpg?v=201711021421&q=80",
+                "mileage": "11 kmpl",
+                "seating": 4,
+                "bookingcost": 18000
+            },
+            {
+                "id": 5,
+                "carname": "Hyundai Elantra",
+                "image": "https://static01.nyt.com/images/2012/07/15/automobiles/15HYUN/15HYUN-superJumbo.jpg",
+                "mileage": "14 kmpl",
+                "seating": 4,
+                "bookingcost": 13000
+            },
+            {
+                "id": 6,
+                "carname": "Skoda Octavia",
+                "image": "https://cdn.skoda-storyboard.com/2024/02/pier_Sk382_PA_F34-copy_4659ba01.webp",
+                "mileage": "16 kmpl",
+                "seating": 4,
+                "bookingcost": 13000
+            },
+            {
+                "id": 7,
+                "carname": "Volvo XC90",
+                "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQW3BVl-i3VxMX8ZzoI8QZpUg5gnH2UkfLnfA&s",
+                "mileage": "8 kmpl",
+                "seating": 4,
+                "bookingcost": 10000
+            },
+            {
+                "id": 8,
+                "carname": "Mazda CX-80",
+                "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtwRakVSues4eselIfjOJswWhrqFn-M1GQ6w&s",
+                "mileage": "8.4 kmpl",
+                "seating": 7,
+                "bookingcost": 15000
+            },
+            {
+                "id": 9,
+                "carname": "Renault Triber",
+                "image": "https://images.tv9hindi.com/wp-content/uploads/2022/01/Renault-Triber-2.jpg",
+                "mileage": "18 kmpl",
+                "seating": 7,
+                "bookingcost": 18000
+            },
+            {
+                "id": 10,
+                "carname": "Toyota Innova Crysta",
+                "image": "https://www.indiacarnews.com/wp-content/uploads/2018/09/2019-Toyota-Innova-Crysta.jpg",
+                "mileage": "12 kmpl",
+                "seating": 7,
+                "bookingcost": 18000
+            },
+            {
+                "id": 11,
+                "carname": "Mahindra Bolero neo",
+                "image": "https://www.jansatta.com/wp-content/uploads/2023/01/Bolero-Neo-limited-edition-Full-Details.jpg",
+                "mileage": "17.29 kmpl",
+                "seating": 7,
+                "bookingcost": 19500
+            },
+            {
+                "id": 12,
+                "carname": "Kia Carens",
+                "image": "https://www.v3cars.com/media/model-imgs/1645184611-Kia-Carens.jpg",
+                "mileage": "15.83 kmpl",
+                "seating": 7,
+                "bookingcost": 19000
+            }
+        ];
+
+        const parent = document.getElementById("main");
+        emp=[]
+
+        data.forEach((val) => {
+            const carCard = document.createElement("div");
+            carCard.className = "car-card";
+            
+            const carContent = document.createElement("div");
+            carContent.className = "car-card-content";
+
+            const carName = document.createElement("div");
+            carName.className = "car-name";
+            carName.innerText = val.carname;
+
+            const carImg = document.createElement("img");
+            carImg.src = val.image;
+            carImg.alt = val.carname;
+
+            const carMileage = document.createElement("div");
+            carMileage.className = "car-details";
+            carMileage.innerText = `Mileage: ${val.mileage}`;
+
+            const carSeating = document.createElement("div");
+            carSeating.className = "car-details";
+            carSeating.innerText = `Seating Capacity: ${val.seating}`;
+
+            const carPrice = document.createElement("div");
+            carPrice.className = "car-price";
+            carPrice.innerText = `Booking Cost: ₹${val.bookingcost}`;
+            
+            
+            
+            const bookButton = document.createElement("btn1");
+            bookButton.innerText = "Book Now";
+            bookButton.addEventListener("click", function () {
+                window.open("details.html")
+                console.log(val);
+                carCard.remove();
+                emp.push(val);
+                localStorage.setItem("details",JSON.stringify(emp));
+            });
+            // styles
+            carName.style.textAlign="center";
+        
+            carContent.append(carName, carImg, carMileage, carSeating, carPrice, bookButton);
+            carCard.appendChild(carContent);
+            parent.appendChild(carCard);
+        });
+    </script>
+</body>
+</html>
