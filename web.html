@@ -74,6 +74,8 @@
             margin-top: 12%;
         }
         #header2{
+            width: 100%;
+            height: auto;
             margin-right: 3%;
             animation: fadeInRight 1s ease-in-out;
 
@@ -124,7 +126,8 @@
             gap: 20px;
         }
         .service1{
-            max-width: 10%;
+                width: 100%;
+                height: auto;
             /* animation: slideIn 5s ease-out; */
             /* height: 100vh; */
         }
@@ -175,6 +178,68 @@
                 transform: translateX(0);
             }
         }    
+        @media screen and (width<476px) {
+            /* nav bar */
+            #navi{
+                height: 10vh;
+                width: 100%;
+                padding-top: 5%;
+                font-size:small;
+            }
+            .nav{
+                padding-right: 5%;
+                margin-top: -0.1%;
+            }
+            .nav1{
+                width: 100%;
+                gap: 10px;
+            }
+            .nav11{
+                width: 100%;
+                margin-top: -2.5%;
+            }
+            /* header */
+            .header{
+                display: block;
+                padding-top:1% ;
+            }
+            #header2>img{
+                width:100%                
+            }
+            /* rent */
+            .rent{
+                height: 80vh;
+            }      
+            /*services */
+            .service{
+                height: 170vh;
+                display: block;
+            }
+            .service1>img{
+                width: 100%;
+            }
+            /* ride */
+            .ride2{
+                display: block;
+            }
+            .ride2_1{
+                margin-left: 30%;
+            }
+            .ride2_2{
+                width: 200%;
+                
+            }
+            .ride2_3{
+                margin-left: 30%;
+            }
+            /* footer */
+            #footer{
+                display: block;
+                row-gap: 10px;
+            }
+
+            
+        }
            
        
          
@@ -191,19 +256,18 @@
             <a href="#Rent">Rent</a> 
             <a href="#Services">Services</a> 
             <a href="#Ride">Ride</a> 
-            <a href="signin.html" class="nav11">SIGN UP</a>
-            <a href="login.html" class="nav11">LOGIN</a>
+            <a href="signin.html" class="nav11">SIGNUP</a>
         </ul>
     </nav>
     <!-- home -->
-    <section id="Home" class="header">
+     <section id="Home" class="header">
         <div id="header1">
              <h1>Looking to save more on your rental car?</h1><br>
              <p>Discover RentalX car rental aoptions in India with Rent a Car Select from a range of car options and local specials.</p><br><br>
-             <a href="cart.html" class="nav11" style="text-decoration: none;">Booknow</a>
+             <a href="cart.html" class="nav11" style="text-decoration: none;">Book Now</a>
          </div>
         <div id="header2">
-            <img src="header.png" alt="">
+            <img src="header.png" alt="Image">
         </div>
     </section>
     <!-- rent -->
@@ -230,6 +294,7 @@
             </div>
         </div>
      </section>
+     <!-- services -->
      <section>
             <div id="Services" class="service">
                 <div class="service1">
@@ -258,6 +323,7 @@
                 </div>
             </div>
      </section><br><br>
+     <!-- ride -->
      <section id="Ride">
         <div id="ride1">
         <p>BEST SERVICES</p><br>
@@ -298,6 +364,7 @@
         </div>
         </div>
      </section><hr>
+     <!-- footer -->
      <footer>
         <div id="footer">
             <div id="footer1">
@@ -325,7 +392,7 @@
                 <p>Repair Shop</p>
             </div>
         </div>
-     </footer>
+     </footer> 
 
 </body>
 </html>
