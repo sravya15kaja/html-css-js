@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car rentals System</title>
+    <style>
+        body{
+            background-image: url(https://4.bp.blogspot.com/-nI3kDblMzSA/UvO_i_to36I/AAAAAAAAAxY/yHNEf2COnGI/s1600/Ferrari%2BOrange%2BColor%2BWallpaper.jpg);
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            height: 95vh;
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+        h1{
+            color: white;
+            font-size: 2em;
+        }
+        input[type="email"] {
+            padding: 10px;
+            font-size: 1em;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            width: 80%;
+            max-width: 400px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #successMessage {
+            color: #28a745;
+            font-size: 14px;
+            margin-top: 15px;
+        }
+
+        #errorMessage {
+            color: #dc3545;
+            font-size: 14px;
+            margin-top: 15px;
+        }
+
+        .message {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <center>
+        <h1>Welcome to the Car Rentals System</h1> 
+        <form id="form">
+            <input type="email" id="email" placeholder="Enter your email" required>
+            <button type="submit" id="btn">Submit</button>
+            <div id="errorMessage" class="message"></div>
+        </form>
+    </center>
+
+    <script>
+        const email = document.getElementById("email");
+        const btn = document.getElementById("btn");
+        const errorMessage = document.getElementById("errorMessage");
+
+        const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+        document.getElementById('form').addEventListener('submit', (e) => {
+            e.preventDefault(); // Prevent form submission
+
+            errorMessage.innerText = ""; // Clear previous error messages
+
+            let emailValid = emailPattern.test(email.value);
+            if (!emailValid) {
+                errorMessage.innerText = "Invalid email format. Please enter a valid email.";
+            } else {
+                window.open("cart.html", "_self");
+            }
+        });
+    </script>
+</body>
+</html>
