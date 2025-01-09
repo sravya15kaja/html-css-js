@@ -54,6 +54,7 @@
             padding: 15px;
         }
         .car-name {
+            text-align: center;
             font-size: 20px;
             font-weight: bold;
             color: #333;
@@ -70,9 +71,8 @@
             color:gray;
             margin-bottom: 15px;
         }
-        btn1 {
-            /* background-color: #4CAF50; */
-            background-color:rgb(216, 135, 65);
+        button {
+            background-color:rgb(251, 134, 31);
             color: white;
             border: none;
             padding: 10px;
@@ -81,10 +81,12 @@
             border-radius: 5px;
             font-size: 16px;
         }
-        btn1:hover {
-            /* background-color: #45a049; */
-            background-color:rgb(251, 134, 31);
-
+        #btn2{
+            width: 10%;
+            
+        }
+        button:hover {
+            background-color:rgb(216, 135, 65);
         }
         #search {
             padding: 10px;
@@ -101,34 +103,12 @@
             border-color: #4CAF50;
             outline: none;
         }
-
-        #btn2 {
-            padding: 10px 15px;
-            background-color:rgb(251, 134, 31);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s ease;
-            margin-top: 20px;
-        }
-
-        #btn2:hover {
-            background-color:rgb(251, 134, 31);
-
-        }
-
-        #btn2:focus {
-            outline: none;
-        }
-
     </style>
 </head>
 <body>
     <center><h1>BOOK YOUR CAR</h1></center>
     <input type="search" id="search">
-    <button onclick="performsearch()" id="btn2"> <i class="fa-solid fa-magnifying-glass fa-xl" style="color: #141415;"></i></button>
+    <button onclick="performSearch()" id="btn2"> <i class="fa-solid fa-magnifying-glass fa-xl" style="color: #141415;"></i></button>
     <div id="main"></div>
 
     <script>
@@ -232,7 +212,7 @@
         ];
 
         const parent = document.getElementById("main");
-        emp=[]
+        let emp = [];
 
         data.forEach((val) => {
             const carCard = document.createElement("div");
@@ -261,24 +241,69 @@
             carPrice.className = "car-price";
             carPrice.innerText = `Booking Cost: ₹${val.bookingcost}`;
             
-            
-            
-            const bookButton = document.createElement("btn1");
+            const bookButton = document.createElement("button");
             bookButton.innerText = "Book Now";
             bookButton.addEventListener("click", function () {
-                window.open("details.html")
-                console.log(val);
-                carCard.remove();
+                window.open("details.html");
                 emp.push(val);
-                localStorage.setItem("details",JSON.stringify(emp));
+                localStorage.setItem("details", JSON.stringify(emp));
+                carCard.remove();
             });
-            // styles
-            carName.style.textAlign="center";
-        
+
             carContent.append(carName, carImg, carMileage, carSeating, carPrice, bookButton);
             carCard.appendChild(carContent);
             parent.appendChild(carCard);
         });
+
+        function performSearch() {
+            const query = document.getElementById('search').value.toLowerCase();
+            const results = data.filter(val => val.carname.toLowerCase().includes(query));
+            displayResults(results);
+        }
+
+        function displayResults(results) {
+            parent.innerHTML = '';  // Clear previous results
+            results.forEach(val => {
+                const carCard = document.createElement("div");
+                carCard.className = "car-card";
+                
+                const carContent = document.createElement("div");
+                carContent.className = "car-card-content";
+
+                const carName = document.createElement("div");
+                carName.className = "car-name";
+                carName.innerText = val.carname;
+
+                const carImg = document.createElement("img");
+                carImg.src = val.image;
+                carImg.alt = val.carname;
+
+                const carMileage = document.createElement("div");
+                carMileage.className = "car-details";
+                carMileage.innerText = `Mileage: ${val.mileage}`;
+
+                const carSeating = document.createElement("div");
+                carSeating.className = "car-details";
+                carSeating.innerText = `Seating Capacity: ${val.seating}`;
+
+                const carPrice = document.createElement("div");
+                carPrice.className = "car-price";
+                carPrice.innerText = `Booking Cost: ₹${val.bookingcost}`;
+                
+                const bookButton = document.createElement("button");
+                bookButton.innerText = "Book Now";
+                bookButton.addEventListener("click", function () {
+                    window.open("details.html");
+                    emp.push(val);
+                    localStorage.setItem("details", JSON.stringify(emp));
+                    carCard.remove();
+                });
+
+                carContent.append(carName, carImg, carMileage, carSeating, carPrice, bookButton);
+                carCard.appendChild(carContent);
+                parent.appendChild(carCard);
+            });
+        }
     </script>
 </body>
 </html>
