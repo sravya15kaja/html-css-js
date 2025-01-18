@@ -17,16 +17,16 @@
             background-color:rgb(251, 134, 31);
             display: flex;
             color: white;
-            padding: 20px;
+            padding: 5px;
             gap: 15%;          
         }
         #heada{
-            margin-left: 5%;
             padding: 2%;
-            border: 2px solid black;
-            border-radius: 50%;
+            margin-left: 5%;
+            
+            border: 5px solid black;
+            border-radius: 30%;
         }
-        
 
         .parent {
             display: flex;
@@ -52,8 +52,6 @@
             width: 100%;
             height: auto;
             border-radius: 8px;
-            text-align: center;
-             
         }
 
         button {
@@ -102,6 +100,13 @@
             background-color: #0056b3;
         }
 
+        #confirmation {
+            text-align: center;
+            margin-top: 20px;
+            color: #28a745;
+            font-size: 20px;
+        }
+
     </style>
 </head>
 <body>
@@ -118,8 +123,8 @@
 
     <form id="form-container">
         <h2>Fill Your Details</h2>
-        <input type="email" placeholder="Confirm your email" id="email" required ><br>
-        <input type="text" placeholder="Name" required><br>
+        <input type="email" placeholder="Confirm your email" id="email" required><br>
+        <input type="text" placeholder="Name" id="name" required><br>
         <input type="number" placeholder="Mobile Number" id="number" required><br>
         <input type="date" placeholder="Date" id="date" required><br>
         <input type="time" placeholder="Time" id="time" required><br>
@@ -139,10 +144,11 @@
             <option value="miyapur">Miyapur</option>
             <option value="madapur">Madapur</option>
         </select>
-        <button id="submit">Book Now</button>
-         
+        <button type="button" id="submit">Book Now</button>
     </form>
 </div>
+
+<div id="confirmation"></div>
 
 <script>
     let getdata = JSON.parse(localStorage.getItem("details"));
@@ -188,12 +194,38 @@
         document.getElementById("main").innerHTML = "<p>No car details available.</p>";
     }
 
-    let button=document.getElementById("submit")
-    button.addEventListener("click", function() {
-        let form=document.querySelectorAll("form-container")
-        
-        
-    })
+    let submit = document.getElementById("submit");
+
+    submit.addEventListener("click", function() {
+        let email = document.getElementById("email").value;
+        let name = document.getElementById("name").value;
+        let number = document.getElementById("number").value;
+        let date = document.getElementById("date").value;
+        let time = document.getElementById("time").value;
+        let location = document.getElementById("location").value;
+
+        const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+        // Form validation
+        if (!email || !name || !number || !date || !time || !location) {
+            alert("Please fill all fields.");
+            return;
+        }
+
+        if (!emailPattern.test(email)) {
+            alert("Please enter a valid email.");
+            return;
+        }
+
+        if (isNaN(number) || number.length !== 10) {
+            alert("Please enter a valid 10-digit mobile number.");
+            return;
+        }
+
+        // Simulate booking success
+        document.getElementById("form-container").reset(); // Reset the form
+        document.getElementById("confirmation").innerHTML = "<p>Your car is booked. Thank you for using our service!</p>";
+    });
 </script>
 
 </body>
