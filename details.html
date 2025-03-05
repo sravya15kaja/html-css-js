@@ -15,17 +15,13 @@
         }
         header {
             background-color:rgb(251, 134, 31);
-            display: flex;
+            /* display: flex; */
             color: white;
-            padding: 5px;
-            gap: 15%;          
+            padding: 4px;
+           
         }
-        #heada{
-            padding: 2%;
-            margin-left: 5%;
-            
-            border: 5px solid black;
-            border-radius: 30%;
+        #cart{
+            margin-left: 48%;
         }
 
         .parent {
@@ -99,12 +95,12 @@
         #form-container button:hover {
             background-color: #0056b3;
         }
+         
 
-        #confirmation {
+        #payment-section {
+            display: none;
             text-align: center;
             margin-top: 20px;
-            color: #28a745;
-            font-size: 20px;
         }
 
     </style>
@@ -112,8 +108,8 @@
 <body>
 
 <header>
-    <a href="cart.html" id="heada"><i class="fa-solid fa-arrow-left fa-2xl" style="color: #080808;"></i></a><br>
-    <h1>Booking Details</h1>
+    <!-- <a href="cart.html" id="heada"><i class="fa-solid fa-arrow-left fa-xl" style="color: #080808;"></i></a><br> -->
+    <center><h1>Booking Details</h1></center>
 </header>
 
 <div class="parent">
@@ -146,9 +142,16 @@
         </select>
         <button type="button" id="submit">Book Now</button>
     </form>
-</div>
 
-<div id="confirmation"></div>
+    <!-- Payment Section -->
+    <div id="payment-section">
+        <h3>Total Cost: ₹<span id="total-cost">0</span></h3>
+        <button id="pay-now">Pay Now</button>
+    </div>
+    
+</div>
+    <button onclick="cart()" id="cart">Back to Cart</button>
+ 
 
 <script>
     let getdata = JSON.parse(localStorage.getItem("details"));
@@ -176,7 +179,7 @@
 
                 // Remove the element from the DOM
                 child.remove();
-                window.location.href="cart.html";
+                // window.location.href="cart.html";
             });
 
             childa.innerText = val.carname;
@@ -222,10 +225,29 @@
             return;
         }
 
-        // Simulate booking success
-        document.getElementById("form-container").reset(); // Reset the form
-        document.getElementById("confirmation").innerHTML = "<p>Your car is booked. Thank you for using our service!</p>";
+        // Get the selected car's booking cost
+        let totalCost = 0;
+        if (getdata && getdata.length > 0) {
+            totalCost = getdata.reduce((acc, car) => acc + parseFloat(car.bookingcost), 0);
+        }
+
+        // Display the payment section
+        document.getElementById("total-cost").textContent = totalCost;
+        document.getElementById("payment-section").style.display = "block";
     });
+    
+
+    let payNowButton = document.getElementById("pay-now");
+
+    payNowButton.addEventListener("click", function() {
+        alert("Payment successful! Thank you for booking.");
+        window.open("successfull.html", "_self");
+    });
+    // back to cart
+     let cart=document.getElementById("cart");
+    cart.addEventListener("click",function(){
+        window.open("cart.html")
+    })
 </script>
 
 </body>
